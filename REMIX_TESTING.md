@@ -1,0 +1,12 @@
+# Remix test sequence
+
+Use Solidity compiler 0.8.19 and OpenZeppelin Contracts 4.9.3. For local testing, deploy a standard ERC-20 test token, then deploy `Exchange` with its address. Amounts below are base units; enter ETH values in Wei (or use Remix's Wei value selector). For the submission, use the lu-eth network and deploy one Exchange for each course token: ASA `0x31c6A9bdb16f4619C4AE66daB6909B3e8EA0f757`, HAW `0x79367eB28B970CaD4D667E20bA530d837014da97`, and KOR `0x3788776dF00D6AD7FdE73D0Db289196849DC412f`.
+
+1. With account A, approve the Exchange for 1,000 tokens. Call `provideLiquidity(1000)` with 1,000 Wei. Confirm `getMyLiquidityPositions()` is 100, both reserves are 1,000, `K` is 1,000,000, and `LiquidityProvided(1000, 1000, 100)` appears.
+2. With account B, approve 500 tokens. Check `estimateEthToProvide(500) == 500` and `estimateERC20TokenToProvide(500) == 500`. Call `provideLiquidity(500)` with 500 Wei. Confirm B receives 50 positions. Try 499 Wei with 500 tokens and confirm it reverts for an incorrect ratio.
+3. With account B, approve another 100 tokens. Check `estimateSwapForEth(100)`, then call `swapForEth(100)`. Confirm the returned ETH amount matches the estimate and `SwapForEth(100, amount)` appears. Confirm a swap without enough allowance reverts.
+4. Check `estimateSwapForERC20Token(100)`, then call `swapForERC20Token()` with 100 Wei. Confirm the returned token amount matches the estimate and `SwapForERC20Token(amount, 100)` appears. Repeat estimates after swaps to check that the current reserves determine prices.
+5. With account A, burn 20 positions. Before calling, calculate each expected withdrawal as `20 * reserve / totalLiquidityPositions`, rounded down. Confirm returned amounts and `LiquidityWithdrew`, A's positions decrease by 20, and `K` equals the product of the remaining reserves. Check that burning more than A owns reverts.
+6. Check that zero token or ETH inputs revert, that swaps before initial liquidity revert on a fresh Exchange, and that attempting to burn all outstanding positions reverts. Check that a failed withdrawal or swap leaves reserves and positions unchanged.
+
+After testing, provide liquidity to each of the three lu-eth exchanges. Record their deployed addresses in `contractInfo.txt` using the assignment's exact three labels, then zip that file with `Exchange.sol` under your team's acronym for Coursesite submission.

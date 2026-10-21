@@ -1,0 +1,3 @@
+Deployed Ether/ASA exchange: 
+Deployed Ether/HAW exchange: 
+Deployed Ether/KOR exchange: 

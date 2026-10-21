@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity >=0.8.2 <=0.8.34.0;
+pragma solidity 0.8.19;
 
 import "@openzeppelin/contracts@4.9.3/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts@4.9.3/security/ReentrancyGuard.sol";
@@ -201,14 +201,13 @@ contract Exchange is ReentrancyGuard {
         uint tokenBalance = token.balanceOf(address(this));
 
         require(
-            ethBalance > 0 &&
-            tokenBalance > 0 &&
-            K > 0,
+            ethBalance > 0 && tokenBalance > 0,
             "Invalid pool"
         );
 
+        uint currentK = ethBalance * tokenBalance;
         uint ethAfter =
-            K /
+            currentK /
             (tokenBalance + _amountERC20Token);
 
         uint ethToSend = ethBalance - ethAfter;
@@ -251,17 +250,18 @@ contract Exchange is ReentrancyGuard {
         uint tokenBalance = token.balanceOf(address(this));
 
         require(
-            ethBalance > 0 &&
-            tokenBalance > 0 &&
-            K > 0,
+            ethBalance > 0 && tokenBalance > 0,
             "Invalid pool"
         );
 
+        uint currentK = ethBalance * tokenBalance;
         uint ethAfter =
-            K /
+            currentK /
             (tokenBalance + _amountERC20Token);
 
-        return ethBalance - ethAfter;
+        uint ethToSend = ethBalance - ethAfter;
+        require(ethToSend > 0 && ethToSend < ethBalance, "Invalid swap");
+        return ethToSend;
     }
 
     function swapForERC20Token()
@@ -277,14 +277,13 @@ contract Exchange is ReentrancyGuard {
         uint tokenBalance = token.balanceOf(address(this));
 
         require(
-            ethBalance > 0 &&
-            tokenBalance > 0 &&
-            K > 0,
+            ethBalance > 0 && tokenBalance > 0,
             "Invalid pool"
         );
 
+        uint currentK = ethBalance * tokenBalance;
         uint tokenAfter =
-            K /
+            currentK /
             (ethBalance + msg.value);
 
         uint tokenToSend =
@@ -320,16 +319,17 @@ contract Exchange is ReentrancyGuard {
         uint tokenBalance = token.balanceOf(address(this));
 
         require(
-            ethBalance > 0 &&
-            tokenBalance > 0 &&
-            K > 0,
+            ethBalance > 0 && tokenBalance > 0,
             "Invalid pool"
         );
 
+        uint currentK = ethBalance * tokenBalance;
         uint tokenAfter =
-            K /
+            currentK /
             (ethBalance + _amountEth);
 
-        return tokenBalance - tokenAfter;
+        uint tokenToSend = tokenBalance - tokenAfter;
+        require(tokenToSend > 0 && tokenToSend < tokenBalance, "Invalid swap");
+        return tokenToSend;
     }
 }
