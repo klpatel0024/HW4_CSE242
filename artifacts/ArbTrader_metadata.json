@@ -1,0 +1,254 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "buyPool",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "sellPool",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "ethIn",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "minProfit",
+						"type": "uint256"
+					}
+				],
+				"name": "arb",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "buyPool",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "sellPool",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "maxEth",
+						"type": "uint256"
+					}
+				],
+				"name": "bestAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "bestIn",
+						"type": "uint256"
+					},
+					{
+						"internalType": "int256",
+						"name": "bestProfit",
+						"type": "int256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "buyPool",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "sellPool",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "ethIn",
+						"type": "uint256"
+					}
+				],
+				"name": "quoteProfit",
+				"outputs": [
+					{
+						"internalType": "int256",
+						"name": "",
+						"type": "int256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "pool",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "reserves",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "eth",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tok",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "withdrawEth",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "withdrawToken",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"arb(address,address,address,uint256,uint256)": {
+					"notice": "Spend `ethIn` from this contract's balance. Reverts unless the contract's ETH balance ends at least `minProfit` higher than it started. buyPool == sellPool is allowed (for exploiting a pool with a stale/odd K)."
+				},
+				"bestAmount(address,address,uint256)": {
+					"notice": "Ternary search for the profit-maximizing ETH input in [1, maxEth]. Profit is concave in the input for constant-product pools, so this works. Only meaningful for two DIFFERENT pools (a same-pool quote ignores that the first leg moves the pool before the second leg)."
+				},
+				"quoteProfit(address,address,uint256)": {
+					"notice": "Profit (in wei, can be negative) of: ethIn -> token on buyPool -> ETH on sellPool. Reverts in a pool are reported as a hugely negative profit instead of reverting."
+				},
+				"reserves(address,address)": {
+					"notice": "Raw reserves of a pool: (ETH, token). Spot price = eth / token."
+				}
+			},
+			"notice": "Buys a token on `buyPool` with FAKEETH and sells it on `sellPool`, all in one transaction. If the round trip is not profitable the whole tx reverts, so a competing trade landing first costs you only gas.",
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"ArbTrader.sol": "ArbTrader"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts@4.9.3/security/ReentrancyGuard.sol": {
+			"keccak256": "0xa535a5df777d44e945dd24aa43a11e44b024140fc340ad0dfe42acf4002aade1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://41319e7f621f2dc3733511332c4fd032f8e32ad2aa7fd6f665c19741d9941a34",
+				"dweb:/ipfs/QmcYR3bd862GD1Bc7jwrU9bGxrhUu5na1oP964bDCu2id1"
+			]
+		},
+		"@openzeppelin/contracts@4.9.3/token/ERC20/IERC20.sol": {
+			"keccak256": "0x287b55befed2961a7eabd7d7b1b2839cbca8a5b80ef8dcbb25ed3d4c2002c305",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://bd39944e8fc06be6dbe2dd1d8449b5336e23c6a7ba3e8e9ae5ae0f37f35283f5",
+				"dweb:/ipfs/QmPV3FGYjVwvKSgAXKUN3r9T9GwniZz83CxBpM7vyj2G53"
+			]
+		},
+		"ArbTrader.sol": {
+			"keccak256": "0xbf26bf8ecf00903d80282f3763ab6982841c15d3526d9bedf78f9dff608a50bf",
+			"license": "UNLICENSED",
+			"urls": [
+				"bzz-raw://b4cebec0d81ef6eb36adacbb1ae1c4d496202ae81d0608b4f3dfa8399a1c1441",
+				"dweb:/ipfs/QmRA4Tj51A8FKP6ZYDMsvoCLUBu4shg7pbFefXFAPTeYZp"
+			]
+		}
+	},
+	"version": 1
+}
