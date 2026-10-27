@@ -1,0 +1,84 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_amountEth",
+						"type": "uint256"
+					}
+				],
+				"name": "estimateSwapForERC20Token",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_amountERC20Token",
+						"type": "uint256"
+					}
+				],
+				"name": "estimateSwapForEth",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Poolscanner.sol": "IPool"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Poolscanner.sol": {
+			"keccak256": "0x4e0c380e8beca4716e2d824a8921f3425aa133c0ea0fae16439e30e71dd22943",
+			"license": "UNLICENSED",
+			"urls": [
+				"bzz-raw://315d11eb67bb30ce727b85788fab9e6b7eaca6a7531d331e8a6058a0c6e1f907",
+				"dweb:/ipfs/QmdoxW2GRrsYELqM3ARVa5aeZpiT7gJFXooyM1m7KFizJ3"
+			]
+		}
+	},
+	"version": 1
+}

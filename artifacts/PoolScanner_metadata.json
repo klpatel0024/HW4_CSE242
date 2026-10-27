@@ -1,0 +1,151 @@
+{
+	"compiler": {
+		"version": "0.8.19+commit.7dd6d404"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "pool",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "ethSizes",
+						"type": "uint256[]"
+					}
+				],
+				"name": "buyCurve",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "out",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address[]",
+						"name": "pools",
+						"type": "address[]"
+					},
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "ethProbe",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tokenProbe",
+						"type": "uint256"
+					}
+				],
+				"name": "scan",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "ethBal",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "tokBal",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "buyQuote",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "sellQuote",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "pool",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "tokenSizes",
+						"type": "uint256[]"
+					}
+				],
+				"name": "sellCurve",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "out",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"buyCurve(address,uint256[])": {
+					"notice": "Quotes for one pool at several sizes, to check how its price curve behaves (for example, whether it charges a fee)."
+				},
+				"scan(address[],address,uint256,uint256)": {
+					"notice": "One call for a whole list of pools that trade the same token. For pool i: FakeETH balance, token balance, tokens received for `ethProbe` wei of FakeETH, and FakeETH received for selling `tokenProbe` raw tokens. A pool whose quote reverts reports 0 for that quote."
+				}
+			},
+			"notice": "Read-only helper: pulls reserves and quotes from many pools in one call. It never sends or receives anything, so calling it is free.",
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Poolscanner.sol": "PoolScanner"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Poolscanner.sol": {
+			"keccak256": "0x4e0c380e8beca4716e2d824a8921f3425aa133c0ea0fae16439e30e71dd22943",
+			"license": "UNLICENSED",
+			"urls": [
+				"bzz-raw://315d11eb67bb30ce727b85788fab9e6b7eaca6a7531d331e8a6058a0c6e1f907",
+				"dweb:/ipfs/QmdoxW2GRrsYELqM3ARVa5aeZpiT7gJFXooyM1m7KFizJ3"
+			]
+		}
+	},
+	"version": 1
+}
